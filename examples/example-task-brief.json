@@ -1,0 +1,42 @@
+{
+  "title": "离线资料整理工具任务书",
+  "subtitle": "把散落文件整理成可搜索、可导出的本地资料库。",
+  "status": "recommended",
+  "updated": "2026-07-21",
+  "audience": "产品负责人和开发者",
+  "summary": {
+    "goal": "让用户在一个入口中整理和查找本地资料。",
+    "user": "经常处理大量项目文件、又不希望上传云端的人。",
+    "deliverable": "一个可以离线运行的桌面应用。",
+    "success": "用户能导入文件夹、搜索内容并导出整理结果。"
+  },
+  "flow": [
+    {"title": "选择资料", "description": "用户选择本地文件夹。", "status": "confirmed"},
+    {"title": "建立索引", "description": "应用读取文本并建立本地目录。", "status": "recommended"},
+    {"title": "搜索导出", "description": "用户查找内容并导出结果。", "status": "recommended"}
+  ],
+  "mindmap": [
+    {"title": "用户界面", "items": ["文件夹选择", "搜索框", "结果列表"]},
+    {"title": "本地数据", "items": ["文件索引", "项目记录", "导出文件"]},
+    {"title": "质量要求", "items": ["离线可用", "键盘可操作", "错误可恢复"]}
+  ],
+  "scope": {
+    "included": ["本地文件导入", "关键词搜索", "结果导出"],
+    "excluded": ["云同步", "多人协作", "自动付费"]
+  },
+  "phases": [
+    {"name": "阶段一：跑通流程", "outcome": "完成一次导入、搜索和导出。", "items": ["制作基础界面", "建立本地索引"], "status": "recommended"}
+  ],
+  "glossary": [
+    {"term": "索引", "plain": "为文件内容制作一份便于快速查找的目录。", "why": "它决定搜索速度和结果准确性。"}
+  ],
+  "decisions": [
+    {"question": "首版支持哪些文件格式？", "recommendation": "先支持 TXT、Markdown 和 PDF。", "status": "pending"}
+  ],
+  "risks": [
+    {"title": "大文件处理缓慢", "impact": "首次导入可能等待过久。", "response": "限制首版文件大小并显示进度。"}
+  ],
+  "acceptance": [
+    {"title": "核心流程可用", "proof": "在测试文件夹上完成导入、搜索和导出录屏。", "status": "recommended"}
+  ]
+}

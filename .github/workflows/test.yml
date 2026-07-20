@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate skill and scripts
+        shell: bash
+        run: |
+          python scripts/validate_skill.py .
+          python -m py_compile scripts/*.py
+          python scripts/build_task_brief.py --input examples/example-task-brief.json --output examples/example-task-brief.html
+          python scripts/check_task_brief.py examples/example-task-brief.html
+      - name: Test all client installations
+        shell: bash
+        run: |
+          python scripts/install.py --targets codex claude kimi --home "$RUNNER_TEMP/visual-task-brief-home"
+          python "$RUNNER_TEMP/visual-task-brief-home/.codex/skills/visual-task-brief/scripts/validate_skill.py" "$RUNNER_TEMP/visual-task-brief-home/.codex/skills/visual-task-brief"
+          python "$RUNNER_TEMP/visual-task-brief-home/.claude/skills/visual-task-brief/scripts/validate_skill.py" "$RUNNER_TEMP/visual-task-brief-home/.claude/skills/visual-task-brief"
+          python "$RUNNER_TEMP/visual-task-brief-home/.config/agents/skills/visual-task-brief/scripts/validate_skill.py" "$RUNNER_TEMP/visual-task-brief-home/.config/agents/skills/visual-task-brief"

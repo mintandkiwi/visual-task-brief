@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
   <title>可视化任务书</title>
   <style>
     :root {
@@ -344,7 +345,7 @@
     $("#doc-title").textContent = brief.title;
     $("#doc-subtitle").textContent = brief.subtitle;
     $("#hero-status").innerHTML = badge(brief.status);
-    $("#doc-meta").innerHTML = `<span>面向：${h(brief.audience)}</span><span>更新：${h(brief.updated)}</span>`;
+    $("#doc-meta").innerHTML = `<span>面向：${h(brief.audience)}</span><span>更新：${h(brief.updated)}</span><span>文件：${h(brief._document?.filename || "")}</span>`;
     $("#mind-hub").textContent = brief.title;
 
     const summaries = [

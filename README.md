@@ -1,23 +1,22 @@
-# Visual Task Brief
+# Visual Task Brief & Delivery Report
 
 [简体中文](README.zh-CN.md) | English
 
 [![Test](https://github.com/mintandkiwi/visual-task-brief/actions/workflows/test.yml/badge.svg)](https://github.com/mintandkiwi/visual-task-brief/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-An open Agent Skill that turns long application task documents, PRDs, and implementation plans into concise, standalone visual HTML briefs.
+An open Agent Skill that turns long planning documents and completed-delivery notes into concise, numbered, standalone visual HTML.
 
 It is designed for **Codex**, **Claude Code**, and **Kimi Code** from one shared `SKILL.md` package.
 
 ## What it creates
 
-- A 60-second summary: goal, user, deliverable, and success criteria
-- Connected process diagrams
-- A compact scope or architecture mind map
-- Included and excluded scope
-- Delivery phases and observable outcomes
-- Plain-language explanations for technical terms
-- Separate labels for confirmed facts, recommendations, pending decisions, and risks
+- **Before implementation:** a visual task brief with goals, scope, connected flows, milestones, decisions, risks, and acceptance criteria
+- **After implementation:** a visual delivery report with actual artifacts, file locations, usage steps, before/after changes, verification evidence, limitations, and handoff status
+- A 60-second plain-language summary for both modes
+- Connected diagrams, artifact maps, comparison cards, and verification charts
+- Clear separation between test passes, manual acceptance, commit/push, deployment, release, and other evidence levels
+- Automatic filenames such as `01-task-brief-my-app.html` and `02-delivery-report-my-app.html`
 - Responsive, keyboard-accessible, print-friendly HTML with no CDN or network dependency
 
 ## Compatibility
@@ -30,7 +29,7 @@ The repository follows the open [Agent Skills specification](https://agentskills
 | Claude Code | `~/.claude/skills/visual-task-brief/` | `/visual-task-brief` |
 | Kimi Code | `~/.config/agents/skills/visual-task-brief/` | `/skill:visual-task-brief` |
 
-All three clients can also select the skill automatically from a matching request such as “create a task brief” or “把这个应用任务书做成图文 HTML”.
+All three clients can also select the skill automatically from a matching request such as “create a task brief”, “create a visual delivery report”, or “把已完成的交付内容做成 HTML 图表”.
 
 The optional `agents/openai.yaml` file adds Codex UI metadata. Claude Code and Kimi Code can ignore it safely.
 
@@ -73,27 +72,49 @@ Natural-language invocation:
 ```text
 Create a visual task brief for this application.
 Turn the implementation plan into an HTML brief with diagrams and a plain-language glossary.
+Create a visual HTML delivery report for the completed work.
 请为这个应用出具可视化任务书。
+把已完成的交付内容做成可视化 HTML。
 ```
 
-The agent creates a structured JSON source and then runs:
+For a task brief, the agent creates structured JSON and runs:
 
 ```bash
 python3 "<skill-dir>/scripts/build_task_brief.py" \
   --input "/absolute/path/task-brief.json" \
-  --output "/absolute/path/task-brief.html"
+  --output-dir "/absolute/path/delivery-docs" \
+  --project "Readable Project Name"
 
 python3 "<skill-dir>/scripts/check_task_brief.py" \
-  "/absolute/path/task-brief.html"
+  "/absolute/path/delivery-docs/01-task-brief-readable-project-name.html"
 ```
 
-See [examples/example-task-brief.json](examples/example-task-brief.json) for a complete input and [references/content-model.md](references/content-model.md) for the field contract.
+For completed work, the agent creates a separate evidence-grounded delivery JSON and runs:
+
+```bash
+python3 "<skill-dir>/scripts/build_delivery_report.py" \
+  --input "/absolute/path/delivery-report.json" \
+  --output-dir "/absolute/path/delivery-docs" \
+  --project "Readable Project Name"
+
+python3 "<skill-dir>/scripts/check_delivery_report.py" \
+  "/absolute/path/delivery-docs/02-delivery-report-readable-project-name.html"
+```
+
+The generator scans the directory and assigns the next sequence. It refuses silent overwrite, so later visual documents become `03-...`, `04-...`, and so on.
+
+Examples and schemas:
+
+- [Task brief input](examples/example-task-brief.json) and [task content model](references/content-model.md)
+- [Delivery report input](examples/example-delivery-report.json) and [delivery content model](references/delivery-content-model.md)
 
 ## Design boundaries
 
 - The HTML is a reading view; JSON, source documents, code, and test evidence remain the source of truth.
 - The skill never turns a recommendation into an approved requirement.
 - Test results, deployment, user acceptance, payment, and other evidence are only marked confirmed when the evidence actually exists.
+- Completed-delivery HTML is the primary reading view; Markdown can remain as a detailed source or appendix.
+- Numbered files preserve a readable document history and are never silently overwritten.
 - Generated HTML is self-contained and does not upload project data.
 
 ## Development and validation
@@ -103,8 +124,14 @@ python3 scripts/validate_skill.py .
 python3 -m py_compile scripts/*.py
 python3 scripts/build_task_brief.py \
   --input examples/example-task-brief.json \
-  --output examples/example-task-brief.html
-python3 scripts/check_task_brief.py examples/example-task-brief.html
+  --output-dir examples/generated \
+  --project "Example Project"
+python3 scripts/build_delivery_report.py \
+  --input examples/example-delivery-report.json \
+  --output-dir examples/generated \
+  --project "Example Project"
+python3 scripts/check_task_brief.py examples/generated/01-task-brief-example-project.html
+python3 scripts/check_delivery_report.py examples/generated/02-delivery-report-example-project.html
 ```
 
 GitHub Actions runs the same checks and verifies isolated installations for all three clients on Linux, macOS, and Windows.

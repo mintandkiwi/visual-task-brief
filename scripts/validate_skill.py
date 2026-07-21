@@ -11,10 +11,16 @@ from pathlib import Path
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 REQUIRED_PATHS = (
     "SKILL.md",
+    "assets/delivery-report-template.html",
     "assets/task-brief-template.html",
+    "examples/example-delivery-report.json",
+    "references/delivery-content-model.md",
     "references/content-model.md",
+    "scripts/build_delivery_report.py",
     "scripts/build_task_brief.py",
+    "scripts/check_delivery_report.py",
     "scripts/check_task_brief.py",
+    "scripts/file_naming.py",
 )
 
 

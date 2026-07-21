@@ -24,8 +24,10 @@ jobs:
         run: |
           python scripts/validate_skill.py .
           python -m py_compile scripts/*.py
-          python scripts/build_task_brief.py --input examples/example-task-brief.json --output examples/example-task-brief.html
-          python scripts/check_task_brief.py examples/example-task-brief.html
+          python scripts/build_task_brief.py --input examples/example-task-brief.json --output-dir examples/generated --project "Example Project"
+          python scripts/build_delivery_report.py --input examples/example-delivery-report.json --output-dir examples/generated --project "Example Project"
+          python scripts/check_task_brief.py examples/generated/01-task-brief-example-project.html
+          python scripts/check_delivery_report.py examples/generated/02-delivery-report-example-project.html
       - name: Test all client installations
         shell: bash
         run: |

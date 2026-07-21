@@ -1,0 +1,49 @@
+{
+  "title": "离线资料整理工具交付成果",
+  "subtitle": "首版核心流程已经形成可运行、可验证、可继续验收的交付包。",
+  "status": "partial",
+  "updated": "2026-07-21",
+  "audience": "产品负责人和使用者",
+  "summary": {
+    "delivered": "可导入本地文件、搜索内容并导出结果的桌面应用原型。",
+    "value": "可以在不上传云端的情况下整理和查找项目资料。",
+    "verification": "自动化测试和结构检查均已通过。",
+    "next": "仍需在真实文件夹上完成一次人工使用验收。"
+  },
+  "deliverables": [
+    {"name": "桌面应用原型", "type": "应用", "description": "包含导入、索引、搜索和导出主流程。", "path": "dist/OfflineLibrary.app", "evidence": "构建命令成功并生成应用包。", "status": "confirmed"},
+    {"name": "使用说明", "type": "文档", "description": "说明启动方式和核心操作。", "path": "docs/usage.md", "evidence": "文件已生成并通过链接检查。", "status": "confirmed"}
+  ],
+  "flow": [
+    {"title": "打开应用", "description": "启动本地桌面应用。", "status": "confirmed"},
+    {"title": "导入资料", "description": "选择需要整理的本地文件夹。", "status": "confirmed"},
+    {"title": "搜索导出", "description": "查找内容并导出结果。", "status": "manual"}
+  ],
+  "map": [
+    {"title": "应用文件", "items": ["桌面应用包", "默认配置"]},
+    {"title": "用户能力", "items": ["导入文件", "关键词搜索", "导出结果"]},
+    {"title": "质量证据", "items": ["自动化测试", "结构检查", "待人工验收"]}
+  ],
+  "changes": [
+    {"area": "资料查找", "before": "需要逐个打开文件确认内容。", "after": "可以在一个搜索框中查找已导入资料。", "impact": "减少重复浏览文件的时间。"}
+  ],
+  "verification": [
+    {"name": "自动化测试", "result": "42 项测试通过", "evidence": "pytest 输出：42 passed", "status": "passed"},
+    {"name": "真实环境验收", "result": "尚未执行", "evidence": "需要用户选择一个真实项目文件夹操作。", "status": "manual"}
+  ],
+  "usage": [
+    {"step": "01", "action": "打开应用包", "result": "进入资料库首页。"},
+    {"step": "02", "action": "选择本地文件夹", "result": "应用建立可搜索目录。"},
+    {"step": "03", "action": "输入关键词并导出", "result": "得到匹配结果文件。"}
+  ],
+  "files": [
+    {"number": "01", "name": "OfflineLibrary.app", "purpose": "运行应用", "path": "dist/OfflineLibrary.app", "status": "confirmed"},
+    {"number": "02", "name": "usage.md", "purpose": "查看使用说明", "path": "docs/usage.md", "status": "confirmed"}
+  ],
+  "limitations": [
+    {"title": "真实文件夹验收未完成", "impact": "尚不能确认不同权限和大文件下的实际体验。", "next": "由用户选择真实文件夹完成一次导入、搜索和导出。", "status": "manual"}
+  ],
+  "glossary": [
+    {"term": "索引", "plain": "为文件内容建立一份便于快速查找的目录。", "why": "它决定搜索速度和结果准确性。"}
+  ]
+}

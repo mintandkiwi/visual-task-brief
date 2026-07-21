@@ -1,7 +1,7 @@
 interface:
-  display_name: "可视化任务书"
-  short_description: "将复杂应用任务书转换为带图解、连线和术语解释的离线 HTML"
-  default_prompt: "Use $visual-task-brief to create a concise visual HTML task brief with diagrams and plain-language glossary."
+  display_name: "可视化任务书与交付成果"
+  short_description: "将任务书与完成后的交付成果转换为编号清晰的可视化 HTML"
+  default_prompt: "Use $visual-task-brief to create a numbered visual HTML task brief or completed-delivery report with diagrams, evidence, and a plain-language glossary."
 
 policy:
   allow_implicit_invocation: true

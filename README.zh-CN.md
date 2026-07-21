@@ -9,6 +9,8 @@
 
 同一套 `SKILL.md` 核心包可供 **Codex、Claude Code 和 Kimi Code** 使用。
 
+本次版本已经用新功能生成真实编号交付成果：[01-delivery-report-visual-task-brief-v0-2.html](docs/01-delivery-report-visual-task-brief-v0-2.html)。
+
 ## 能生成什么
 
 - **实施前：**生成目标、范围、流程连线、阶段、决策、风险和验收标准组成的可视化任务书

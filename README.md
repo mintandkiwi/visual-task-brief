@@ -9,6 +9,8 @@ An open Agent Skill that turns long planning documents and completed-delivery no
 
 It is designed for **Codex**, **Claude Code**, and **Kimi Code** from one shared `SKILL.md` package.
 
+This release documents itself with a real numbered artifact: [01-delivery-report-visual-task-brief-v0-2.html](docs/01-delivery-report-visual-task-brief-v0-2.html).
+
 ## What it creates
 
 - **Before implementation:** a visual task brief with goals, scope, connected flows, milestones, decisions, risks, and acceptance criteria
